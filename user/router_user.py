@@ -10,7 +10,6 @@ from auth.oauth2 import get_current_user
 router = APIRouter(
     prefix='/user',
     tags=['User'],
-    redirect_slashes=False  
 )
 
 @router.post('', response_model=UserDisplay)
