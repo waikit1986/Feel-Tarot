@@ -11,3 +11,8 @@ class UserDisplay(BaseModel):
   email: str
   class Config():
     from_attributes = True
+    
+class UserID(BaseModel):
+  id: str
+  class Config():
+    from_attributes = True
