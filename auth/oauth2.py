@@ -9,7 +9,7 @@ from jose import JWTError, jwt
 from db.database import get_db
 from user import user_functions
  
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/token")
  
 SECRET_KEY = '0dc22b10aa1de98e7e99539c32d36078ccaed846fdad66435c7ada93feb5b244'
 ALGORITHM = 'HS256'
