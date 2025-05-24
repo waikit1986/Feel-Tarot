@@ -24,11 +24,11 @@ def get_user(id: str, db: Session = Depends(get_db), current_user: UserBase = De
 def get_user_by_name(username: str, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)): 
     return user_functions.get_user_by_username(db, username)
 
-@router.put('/{id}', response_model=str)
-def update_user(id: str, request: UserBase, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
-    return user_functions.update_user(db, id, request)
+@router.put('/{username}', response_model=str)
+def update_user(username: str, request: UserBase, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+    return user_functions.update_user(db, username, request)
 
-@router.delete('/{id}', response_model=str)
-def delete_user(id: str, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
-    return user_functions.delete_user(db, id)
+@router.delete('/{username}', response_model=str)
+def delete_user(username: str, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+    return user_functions.delete_user(db, username)
 
