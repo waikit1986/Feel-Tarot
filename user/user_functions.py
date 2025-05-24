@@ -17,7 +17,7 @@ def create_user(db: Session, request: UserBase):
   db.refresh(new_user)
   return new_user
 
-def get_user_by_id(db: Session, id: str):
+def get_user_by_id(db: Session, id: int):
   user = db.query(User).filter(User.id == id).first()
   if not user:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
