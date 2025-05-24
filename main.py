@@ -9,8 +9,8 @@ from auth import authentication
 
 
 app = FastAPI()
-app.include_router(UserRouter)
-app.include_router(PersonaRouter)
+app.include_router(UserRouter, prefix="/api")
+app.include_router(PersonaRouter, prefix="/api")
 app.include_router(authentication.router)
 
 @app.get("/")
