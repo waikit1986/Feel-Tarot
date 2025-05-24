@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from db.database import get_db
@@ -26,9 +26,19 @@ def get_user_by_name(username: str, db: Session = Depends(get_db), current_user:
 
 @router.put('/{username}', response_model=str)
 def update_user(username: str, request: UserBase, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+    if username != current_user.username:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You cannot update another user's details"
+        )
     return user_functions.update_user(db, username, request)
 
 @router.delete('/{username}', response_model=str)
 def delete_user(username: str, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+    if username != current_user.username:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You cannot delete another user's account"
+        )
     return user_functions.delete_user(db, username)
 
