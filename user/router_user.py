@@ -30,9 +30,9 @@ def update_user(id: str, request: UserBase, db: Session = Depends(get_db), curre
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to update this user")
     return user_functions.update_user(db, id, request)
 
-@router.delete('/{id}', response_model=str)
-def delete_user(id: str, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
-    if str(current_user.id) != id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to delete this user")
-    return user_functions.delete_user(db, id)
+# @router.delete('/{id}', response_model=str)
+# def delete_user(id: str, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+#     if str(current_user.id) != id:
+#         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to delete this user")
+#     return user_functions.delete_user(db, id)
 
