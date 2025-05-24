@@ -31,11 +31,11 @@ def get_user_by_username(db: Session, username: str):
       detail='User with username {username} not found')
   return user
 
-def update_user(db: Session, id: int, request: UserBase):
-  user = db.query(User).filter(User.id == id)
+def update_user(db: Session, username: str, request: UserBase):
+  user = db.query(User).filter(User.username == username)
   if not user.first():
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-      detail='User with id {id} not found')
+      detail='User with username {username} not found')
   user.update({
     User.username: request.username,
     User.email: request.email,
