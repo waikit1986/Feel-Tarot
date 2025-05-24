@@ -12,7 +12,7 @@ router = APIRouter(
     tags=['User']
 )
 
-@router.post('/', response_model=UserDisplay)
+@router.post('', response_model=UserDisplay)
 def create_user(request: UserBase, db: Session = Depends(get_db)):
     return user_functions.create_user(db, request)
 
