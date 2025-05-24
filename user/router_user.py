@@ -24,11 +24,11 @@ def get_user(id: str, db: Session = Depends(get_db), current_user: UserBase = De
 def get_user_by_name(name: str, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)): 
     return user_functions.get_user_by_name(db, name)
 
-@router.put('/{username}', response_model=str)
-def update_user(username: str, request: UserBase, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
-    if str(current_user.username) != username:
+@router.put('/{id}', response_model=str)
+def update_user(id: str, request: UserBase, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+    if str(current_user.id) != id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to update this user")
-    return user_functions.update_user(db, username, request)
+    return user_functions.update_user(db, id, request)
 
 @router.delete('/{id}', response_model=str)
 def delete_user(id: str, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
