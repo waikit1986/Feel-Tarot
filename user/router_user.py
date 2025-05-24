@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from db.database import get_db
-from .schema_user import UserBase, UserDisplay
+from .schema_user import UserBase, UserDisplay, UserID
 from . import user_functions
 from auth.oauth2 import get_current_user
 
@@ -25,7 +25,7 @@ def get_user_by_name(name: str, db: Session = Depends(get_db), current_user: Use
     return user_functions.get_user_by_name(db, name)
 
 @router.put('/{id}', response_model=str)
-def update_user(id: str, request: UserBase, db: Session = Depends(get_db), current_user: UserBase = Depends(get_current_user)):
+def update_user(id: str, request: UserBase, db: Session = Depends(get_db), current_user: UserID = Depends(get_current_user)):
     if str(current_user.id) != id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to update this user")
     return user_functions.update_user(db, id, request)
